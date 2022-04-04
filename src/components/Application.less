@@ -1,0 +1,156 @@
+//-----------------------------------------
+// Variables
+//-----------------------------------------
+
+@base-bg-color: #171b21;
+@base-text-color: #d8d8d8;
+@base-font-size: 16px;
+@base-line-height: 1.15;
+@base-font-family: sans-serif;
+@cont-bg-color: #1f252d;
+
+@content-hover-color: #474d49c2;
+@content-hover-color-brighter: #2f4667;
+
+@default-margin: 16px;
+
+//-----------------------------------------
+// Style Rules
+//-----------------------------------------
+
+body {
+  margin: @default-margin;
+  font-size: @base-font-size;
+  font-family: @base-font-family;
+  color: @base-text-color;
+  background-color: @base-bg-color;
+  // line-height: @base-line-height;
+  user-select: none;
+}
+
+.libraryHeader {
+  font-size: 2em;
+}
+
+.playlist {
+  margin-left: @default-margin;
+  margin-bottom: 2px;
+}
+
+.playlistName {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.envHeader {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.playlistName:hover {
+  background-color: @content-hover-color;
+}
+
+.playlistFilesToggle {
+  padding-left: 4px;
+  padding-right: 4px;
+  cursor: pointer;
+}
+
+.playlistFilesToggle:hover {
+  background-color: @content-hover-color-brighter;
+}
+
+.playlistFiles {
+  margin-left: @default-margin;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.file {
+  cursor: pointer;
+  font-size: 0.8em;
+  margin-bottom: 2px;
+}
+
+.fileName {
+  // display: inline-block;
+  // vertical-align: middle;
+  align-self: center;
+}
+
+.fileVolume {
+  display: inline-block;
+}
+
+.fileName:hover {
+  background-color: @content-hover-color;
+}
+
+.volumeEditorRoot {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  text-align: end;
+  font-size: 0.8em;
+
+  background-color: rgba(19, 21, 28, 0.781);
+  border-radius: 8px;
+
+  padding: 8px;
+}
+
+.volumeEditorContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.volumeEditorRange {
+  // transform: scale(0.75);
+  width: 70px;
+  opacity: 0.3;
+}
+
+.volumeEditorRange:hover {
+  opacity: 1.0;
+}
+
+.volumeEditorRange:hover + .volumeEditorValue {
+  display: inline-block;
+}
+
+.volumeEditorValue {
+  // width: 50px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: center;
+  background-color: @content-hover-color;
+  position: absolute;
+
+  display: none;
+  top: -1px;
+  font-size: 0.85em;
+  border-radius: 2px;
+}
+
+.volumeSlider {
+  width: 50px;
+}
+
+.libraryTable {
+  margin-bottom: 90px;
+}
+
+.libraryTable td {
+  vertical-align: top;
+}
+
+.filePlaying {
+  color: #00cc00;
+}
+
+.playlistPlaying {
+  color: #00cc00;
+}
