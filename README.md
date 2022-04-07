@@ -7,6 +7,8 @@ This is a very basic and simple tool that allows game master (GM) to mix the aud
 - to create a specific mood using **music playlists**
 - and to use **environment sounds** to make it even more immersive.
 
+The latest release: https://github.com/dzganiaiko/tabletop-sound-mixer/releases/tag/v1.0.0
+
 ## How does it work
 
 1. Create a folder structure with the audio files like this:
