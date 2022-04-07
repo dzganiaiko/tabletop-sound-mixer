@@ -103,6 +103,7 @@ export class AudioPlayer {
             }
 
             this.playFileFromEntity(newEntity);
+            this.audio.volume = 0.0;
 
             this.fadeIn(duration / 2.0, () => {
                 this.audio.volume = this._volume;
@@ -133,7 +134,7 @@ export class AudioPlayer {
             console.log('Going to play', audioFile);
             this.recreateAudio();
             this.audio.src = 'myfile://' + encodeURI(audioFile.path);
-            this.audio.volume = 0.0;
+            this.audio.volume = this.volume;
             this.audio.load();
             this.audio.play();
         } else {
