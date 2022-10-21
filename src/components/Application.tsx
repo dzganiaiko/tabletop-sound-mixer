@@ -149,6 +149,16 @@ Library Folder/
                             onChange={ (e, v) => { this.audioMixer.envVolume = this.extractVolume(v) } }
                         />
                     </Stack>
+                    <Stack spacing={2} direction="row" sx={{ width: '200px' }} alignItems="center">
+                        <span>Playback Rate {Math.round(this.audioMixer.playbackRate * 100)}%</span>
+                        <Slider
+                            aria-label="Playback Rate"
+                            size="small"
+                            min={0.25} max={1.5} step={0.01}
+                            defaultValue={ this.audioMixer.playbackRate }
+                            onChange={ (e, v) => { this.audioMixer.playbackRate = this.extractVolume(v); this.forceUpdate(); } }
+                        />
+                    </Stack>
                 </Stack>
             </div>
         );

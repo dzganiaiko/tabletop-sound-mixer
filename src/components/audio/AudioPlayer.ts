@@ -7,6 +7,7 @@ export class AudioPlayer {
     private activeTimer?: NodeJS.Timeout;
     private _activePlayableEntity?: AudioPlayable;
     private _volume = 1.0;
+    private _playbackRate = 1.0;
 
     onAudioFileCompletion?: () => void;
 
@@ -66,6 +67,15 @@ export class AudioPlayer {
         if (!this.activeTimer) {
             this.audio.volume = this._volume;
         }
+    }
+
+    get playbackRate(): number {
+        return this._playbackRate;
+    }
+
+    set playbackRate(v: number) {
+        this._playbackRate = v;
+        this.audio.playbackRate = v;
     }
 
     private play(entity: AudioPlayable) {
@@ -131,12 +141,19 @@ export class AudioPlayer {
     private playFileFromEntity(entity: AudioPlayable) {
         const audioFile = entity.getAudioFile()
         if (audioFile) {
-            console.log('Going to play', audioFile);
+            console.log('Going to play', audioFile, this.audio);
             this.recreateAudio();
             this.audio.src = 'myfile://' + encodeURI(audioFile.path);
             this.audio.volume = this.volume;
+            this.audio.playbackRate = this.playbackRate;
             this.audio.load();
             this.audio.play();
+            this.audio.playbackRate = this.playbackRate;
+
+            const audioAny = this.audio as any;
+            if (typeof audioAny.preservesPitch !== 'undefined') {
+                audioAny.preservesPitch = false;
+            }
         } else {
             console.log('Nothing to play from', entity);
         }

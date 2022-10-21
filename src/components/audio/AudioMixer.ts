@@ -11,6 +11,7 @@ interface VolumeConfiguration {
     globalVolume: number;
     musicVolume: number;
     envVolume: number;
+    playbackRate: number;
     envFileVolumes: EnvFileVolumePerFileName;
 }
 
@@ -25,6 +26,7 @@ export class AudioMixer {
         globalVolume: 1.0,
         musicVolume: 1.0,
         envVolume: 1.0,
+        playbackRate: 1.0,
         envFileVolumes: {}
     };
 
@@ -36,6 +38,7 @@ export class AudioMixer {
     get globalVolume() { return this.volumeCfg.globalVolume; }
     get musicVolume() { return this.volumeCfg.musicVolume; }
     get envVolume() { return this.volumeCfg.envVolume; }
+    get playbackRate() { return this.volumeCfg.playbackRate; }
 
     set globalVolume(value: number) {
         this.volumeCfg.globalVolume = value;
@@ -51,6 +54,12 @@ export class AudioMixer {
 
     set envVolume(value: number) {
         this.volumeCfg.envVolume = value;
+        this.saveVolumeConfiguration();
+        this.applyVolume();
+    }
+
+    set playbackRate(value: number) {
+        this.volumeCfg.playbackRate = value;
         this.saveVolumeConfiguration();
         this.applyVolume();
     }
@@ -72,6 +81,7 @@ export class AudioMixer {
 
     private applyVolume() {
         this.musicAudioPlayer.volume = this.volumeCfg.globalVolume * this.volumeCfg.musicVolume;
+        this.musicAudioPlayer.playbackRate = this.volumeCfg.playbackRate;
 
         for (const player of this.envAudioPlayers) {
             const file = player.activePlayable?.getAudioFile();
@@ -79,6 +89,7 @@ export class AudioMixer {
                 continue;
             }
             player.volume = this.volumeCfg.globalVolume * this.volumeCfg.envVolume * this.getEnvFileVolume(file);
+            player.playbackRate = this.volumeCfg.playbackRate;
         }
     }
 
@@ -132,6 +143,7 @@ export class AudioMixer {
 
     playMusic(playable: AudioPlayable) {
         this.musicAudioPlayer.volume = this.volumeCfg.globalVolume * this.volumeCfg.musicVolume;
+        this.musicAudioPlayer.playbackRate = this.volumeCfg.playbackRate;
         this.musicAudioPlayer.fade(playable);
 
         this.callCallbacks();
@@ -151,6 +163,7 @@ export class AudioMixer {
 
         const newPlayer = new AudioPlayer();
         newPlayer.volume = this.volumeCfg.globalVolume * this.volumeCfg.envVolume * this.getEnvFileVolume(file);
+        newPlayer.playbackRate = this.volumeCfg.playbackRate;
         this.subscribeForAudioPlayerChanges(newPlayer);
         this.envAudioPlayers.push(newPlayer);
         newPlayer.fade(file);
